@@ -1,0 +1,14 @@
+{
+  "name": "internshipos",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @internshipos/web",
+    "build": "npm run build -w @internshipos/web",
+    "start": "npm run start -w @internshipos/web",
+    "typecheck": "npm run typecheck -w @internshipos/web"
+  }
+}

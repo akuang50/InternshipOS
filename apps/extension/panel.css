@@ -1,0 +1,26 @@
+.ios-panel {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  z-index: 2147483646;
+  background: #fff;
+  color: #171714;
+  border: 1px solid #e1e1da;
+  border-radius: 12px;
+  padding: 12px;
+  font: 13px/1.4 Inter, sans-serif;
+  box-shadow: 0 12px 32px rgba(23, 23, 20, 0.12);
+}
+.ios-panel header { display: flex; justify-content: space-between; align-items: center; }
+.ios-panel button { border: 0; background: transparent; font-size: 16px; cursor: pointer; }
+.ios-status { display: flex; flex-direction: column; gap: 4px; }
+.ios-note { color: #5c5c55; }
+.ios-actions { display: flex; gap: 8px; margin-top: 8px; }
+.ios-actions a {
+  background: #2f3de0;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+}

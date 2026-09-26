@@ -1,0 +1,60 @@
+:root {
+  color-scheme: light;
+  --bg: #f3f3ef;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #e8e8e2;
+  --bg-sidebar: #ecece6;
+  --border: #e1e1da;
+  --border-strong: #cecec4;
+  --text: #171714;
+  --text-secondary: #5c5c55;
+  --text-tertiary: #8a8a82;
+  --primary: #2f3de0;
+  --primary-hover: #2432c4;
+  --primary-soft: #e7e9ff;
+  --primary-text: #2430b0;
+  --on-primary: #ffffff;
+  --success: #0d7a4f;
+  --success-soft: #e4f6ee;
+  --warning: #8a5a00;
+  --warning-soft: #fff4d6;
+  --danger: #b42318;
+  --danger-soft: #fdeceb;
+  --flame: #c2410c;
+  --shadow: 0 16px 40px rgba(23, 23, 20, 0.12);
+  --sidebar-w: 232px;
+  --radius: 10px;
+  --font: "Inter", "Avenir Next", "Segoe UI", sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101012;
+  --bg-elevated: #18181b;
+  --bg-sunken: #0c0c0e;
+  --bg-sidebar: #141416;
+  --border: #2c2c31;
+  --border-strong: #3a3a42;
+  --text: #f4f4ef;
+  --text-secondary: #c2c2b8;
+  --text-tertiary: #8e8e86;
+  --primary: #9aa4ff;
+  --primary-hover: #b3baff;
+  --primary-soft: #23284a;
+  --primary-text: #d5d9ff;
+  --on-primary: #12141f;
+  --success: #3dbe86;
+  --success-soft: #10281c;
+  --warning: #e2b340;
+  --warning-soft: #2c230f;
+  --danger: #ff8d86;
+  --danger-soft: #3a1714;
+  --flame: #fb923c;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
