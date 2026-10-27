@@ -24,6 +24,13 @@ export type JobSource = {
   url: string;
 };
 
+export type HiringContact = {
+  name: string;
+  role: "founder" | "recruiter";
+  title: string;
+  email: string;
+};
+
 export type Job = {
   id: string;
   company: string;
@@ -47,6 +54,7 @@ export type Job = {
   degreeHints: string[];
   descriptionHash: string;
   freshness: JobFreshness;
+  contact: HiringContact;
 };
 
 export type Experience = {

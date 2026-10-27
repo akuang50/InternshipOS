@@ -103,7 +103,7 @@ export function withDb<T>(fn: (db: Database) => Promise<T> | T): Promise<T> {
   }
   const run = chain.then(async () => {
     const db = await read();
-    if (!db.jobs.length) db.jobs = ingestListings();
+    db.jobs = ingestListings();
     const result = await fn(db);
     await write(db);
     return result;

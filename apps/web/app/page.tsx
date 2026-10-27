@@ -11,7 +11,7 @@ export default function LandingPage() {
   const resume = sampleResume("example");
   const ranked = rankJobs(
     ingestListings().map((job) => ({ job, match: matchJob(profile, resume, job) })),
-  ).slice(0, 3);
+  ).slice(0, 6);
 
   return (
     <div className="landing">

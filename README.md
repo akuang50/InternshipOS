@@ -22,9 +22,9 @@ Copy `.env.example` if you want a model provider. Without `AI_API_KEY`, resume o
 - Explainable match scores, freshness (“Opened 6 hours ago”), and a side panel that keeps your place in the list
 - Save, apply queue, background preparation, application session, tailoring diffs, cover letters, and question drafts that leave salary and unknown work authorization blank
 - Tracker, deadline calendar, settings with export and deletion
-- Chrome extension sidebar that asks the local app whether the open posting is already in the feed
+- Chrome extension that matches an open Greenhouse, Lever, Ashby, or Workday posting and fills empty application fields from your profile. It does not submit, and it leaves salary and work authorization blank.
 
-Load `apps/extension` as an unpacked extension while the app is running on port 3000. `apps/extension/config.js` is the API origin. Leave it on localhost for development.
+Load `apps/extension` as an unpacked extension while the app is running on port 3000. `apps/extension/config.js` is the API origin. Leave it on `http://127.0.0.1:3000` for development. After you change the extension, click Reload on `chrome://extensions`.
 
 ## Going public
 

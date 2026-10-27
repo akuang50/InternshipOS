@@ -1,6 +1,13 @@
 import { hashText, normalize } from "@internshipos/ai";
 import type { Job, JobSource } from "@internshipos/types";
+import { contactFor } from "./fixtures/contacts";
 import { daysFromNow, describeFreshness, hoursAgo } from "./freshness";
+import {
+  extraAshbyListings,
+  extraGreenhouseListings,
+  extraLeverListings,
+  extraWorkdayListings,
+} from "./fixtures/more-listings";
 import {
   ashbyListings,
   greenhouseListings,
@@ -20,7 +27,7 @@ type Normalized = {
 };
 
 function fromGreenhouse(): Normalized[] {
-  return greenhouseListings.map((listing) => ({
+  return [...greenhouseListings, ...extraGreenhouseListings].map((listing) => ({
     company: listing.company_name,
     title: listing.title,
     location: listing.location.name,
@@ -32,7 +39,7 @@ function fromGreenhouse(): Normalized[] {
 }
 
 function fromLever(): Normalized[] {
-  return leverListings.map((listing) => ({
+  return [...leverListings, ...extraLeverListings].map((listing) => ({
     company: listing.categories.team,
     title: listing.text,
     location: listing.categories.location,
@@ -44,7 +51,7 @@ function fromLever(): Normalized[] {
 }
 
 function fromAshby(): Normalized[] {
-  return ashbyListings.map((listing) => ({
+  return [...ashbyListings, ...extraAshbyListings].map((listing) => ({
     company: listing.organization,
     title: listing.title,
     location: listing.locationName,
@@ -56,7 +63,7 @@ function fromAshby(): Normalized[] {
 }
 
 function fromWorkday(): Normalized[] {
-  return workdayListings.map((listing) => ({
+  return [...workdayListings, ...extraWorkdayListings].map((listing) => ({
     company: listing.company,
     title: listing.title,
     location: listing.locationsText,
@@ -114,6 +121,7 @@ export function ingestListings(now = new Date()): Job[] {
       degreeHints: item.meta.degreeHints,
       descriptionHash: hashText(item.description),
       freshness: describeFreshness(posted, posted, now),
+      contact: contactFor(item.company, item.meta.companySize, item.meta.employeeCount),
     });
   }
 

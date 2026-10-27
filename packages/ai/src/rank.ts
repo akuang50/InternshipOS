@@ -38,11 +38,14 @@ export function isStalled(status: ApplicationView["status"], updatedAt: string, 
   return now.getTime() - new Date(updatedAt).getTime() > 48 * 3600 * 1000;
 }
 
-export function checklistFor(app: {
-  tailored: ApplicationView["tailored"];
-  coverLetter: ApplicationView["coverLetter"];
-  answers: ApplicationView["answers"];
-}): ApplicationView["checklist"] {
+export function checklistFor(
+  app: {
+    tailored: ApplicationView["tailored"];
+    coverLetter: ApplicationView["coverLetter"];
+    answers: ApplicationView["answers"];
+  },
+  networkingContacts = 0,
+): ApplicationView["checklist"] {
   const answered = app.answers.filter((item) => item.answer.trim()).length;
   const review = app.answers.filter((item) => item.confidence === "review" || !item.answer.trim()).length;
   return {
@@ -51,7 +54,7 @@ export function checklistFor(app: {
     questionsAnswered: answered,
     questionsTotal: app.answers.length,
     questionsNeedReview: app.answers.filter((item) => item.confidence === "review").length,
-    networkingContacts: 0,
+    networkingContacts,
     autofillReady:
       Boolean(app.tailored) &&
       Boolean(app.coverLetter?.text.trim()) &&

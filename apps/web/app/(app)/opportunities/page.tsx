@@ -1,11 +1,12 @@
 "use client";
 
+import { OutreachCard } from "@/components/outreach";
 import { FactorList, MatchMeter, matchBadgeClass } from "@/components/match";
 import { useIOS, type FeedJob } from "@/components/provider";
 import { EmptyState } from "@/components/states";
 import { deadlineLabel, sizeLabel } from "@/lib/format";
 import { applyFilters, parseNaturalFilter, type JobFilters } from "@internshipos/api/filters";
-import { rankJobs } from "@internshipos/ai";
+import { planOutreach, rankJobs } from "@internshipos/ai";
 import type { RoleFamily } from "@internshipos/types";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -85,7 +86,10 @@ export default function OpportunitiesPage() {
       if (!selected) return;
       if (event.key.toLowerCase() === "s") void ios.trackJob(selected.id, "save");
       if (event.key.toLowerCase() === "a") void ios.trackJob(selected.id, "queue");
-      if (event.key.toLowerCase() === "n") ios.setFlash("No contacts are linked yet. Networking ships later, and this screen won't invent people.");
+      if (event.key.toLowerCase() === "n" && ios.profile) {
+        const plan = planOutreach({ job: selected, profile: ios.profile, resume: ios.resume, match: selected.match });
+        ios.setFlash(`${plan.headline}. ${plan.contact.email}`);
+      }
       if (event.key.toLowerCase() === "o") {
         const app = ios.applications.find((item) => item.jobId === selected.id);
         if (app) window.location.href = `/applications/${app.id}`;
@@ -247,6 +251,7 @@ function JobPanel({ job, onClose }: { job: FeedJob; onClose: () => void }) {
         </div>
       ) : null}
       <p className="banner">{job.match.recommendation}</p>
+      {ios.profile ? <OutreachCard job={job} profile={ios.profile} resume={ios.resume} match={job.match} /> : null}
       <p className="muted">{job.description}</p>
       <div className="row">
         <button className="btn" onClick={() => ios.trackJob(job.id, "save")}>{app?.saved ? "Saved" : "Save"}</button>
@@ -265,7 +270,7 @@ function JobPanel({ job, onClose }: { job: FeedJob; onClose: () => void }) {
         >
           Tailor resume
         </button>
-        <button className="btn" onClick={() => ios.setFlash("No contacts are linked yet. This button will not invent alumni or recruiters.")}>Find people</button>
+        <a className="btn" href="#outreach">Email draft</a>
         {app ? <Link className="btn" href={`/applications/${app.id}`}>Open workspace</Link> : null}
         <a className="btn" href={job.applicationUrl} target="_blank" rel="noreferrer">Company site</a>
       </div>

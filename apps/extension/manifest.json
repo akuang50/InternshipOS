@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "InternshipOS",
-  "version": "0.1.0",
-  "description": "See whether an open internship posting is already in your InternshipOS feed.",
-  "permissions": ["storage"],
+  "version": "0.2.0",
+  "description": "Fill internship applications from your InternshipOS profile. It never submits.",
+  "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "http://localhost:3000/*",
     "http://127.0.0.1:3000/*",
@@ -23,7 +23,7 @@
         "https://jobs.ashbyhq.com/*",
         "https://*.myworkdayjobs.com/*"
       ],
-      "js": ["config.js", "content.js"],
+      "js": ["config.js", "fill.js", "content.js"],
       "css": ["panel.css"]
     }
   ]

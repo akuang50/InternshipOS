@@ -1,6 +1,7 @@
 "use client";
 
 import { FactorList, matchBadgeClass } from "@/components/match";
+import { OutreachCard } from "@/components/outreach";
 import { useIOS } from "@/components/provider";
 import { ErrorState } from "@/components/states";
 import type { ApplicationView, CoverTone } from "@internshipos/types";
@@ -36,7 +37,7 @@ export default function WorkspacePage() {
       {tab === "Resume" ? <ResumeTab app={app} /> : null}
       {tab === "Cover letter" ? <CoverTab app={app} /> : null}
       {tab === "Questions" ? <QuestionsTab app={app} /> : null}
-      {tab === "Network" ? <Later title="People you could talk to" body="Alumni, former interns, and referral drafts are not in this version. No sample people are shown, because a fake contact is worse than an empty one." /> : null}
+      {tab === "Network" && ios.profile ? <OutreachCard job={app.job} profile={ios.profile} resume={ios.resume} match={app.match} /> : null}
       {tab === "Prep" ? <Later title="Interview prep comes later" body="Technical problems will be original or licensed — not copied from LeetCode or Glassdoor. This tab will hold company-specific practice once that module exists." /> : null}
     </div>
   );
@@ -63,7 +64,7 @@ function Overview({ app }: { app: ApplicationView }) {
           <li><span>Cover letter</span><span className={check.coverLetter ? "ok" : "warn"}>{check.coverLetter ? "Yes" : "Not yet"}</span></li>
           <li><span>Questions</span><span>{check.questionsAnswered}/{check.questionsTotal || 0}</span></li>
           <li><span>Need review</span><span className={check.questionsNeedReview ? "warn" : "ok"}>{check.questionsNeedReview}</span></li>
-          <li><span>Networking contacts</span><span className="tiny">0 — optional, not connected</span></li>
+          <li><span>Hiring contact</span><span className={check.networkingContacts ? "ok" : "warn"}>{check.networkingContacts ? app.job.contact.email : "None on this listing"}</span></li>
           <li><span>Autofill ready</span><span className={check.autofillReady ? "ok" : "warn"}>{check.autofillReady ? "Yes" : "No"}</span></li>
         </ul>
         <label className="field">

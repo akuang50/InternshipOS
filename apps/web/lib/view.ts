@@ -22,6 +22,6 @@ export function presentApplication(
     match,
     priority: priorityFor(match, fresh),
     stalled: isStalled(app.status, app.updatedAt),
-    checklist: checklistFor(app),
+    checklist: checklistFor(app, fresh.contact ? 1 : 0),
   };
 }

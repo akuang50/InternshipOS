@@ -17,10 +17,15 @@
 .ios-status { display: flex; flex-direction: column; gap: 4px; }
 .ios-note { color: #5c5c55; }
 .ios-actions { display: flex; gap: 8px; margin-top: 8px; }
-.ios-actions a {
+.ios-actions a, .ios-fill {
   background: #2f3de0;
   color: white;
   text-decoration: none;
+  border: 0;
   border-radius: 8px;
   padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
 }
+.ios-fill:disabled { opacity: 0.5; cursor: default; }
+.ios-filled { outline: 2px solid #2f3de0; outline-offset: 1px; }

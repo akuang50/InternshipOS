@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { normalize } from "@internshipos/ai";
 import { withDb } from "@/lib/db";
 import { fail, requireUser } from "@/lib/http";
+import { autofillPacket } from "@/lib/autofill";
 import { presentApplication, presentJob } from "@/lib/view";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,8 @@ export async function GET(request: Request) {
     const profile = db.profiles.find((item) => item.userId === auth.session.userId);
     if (!profile) return { error: "Sign in to InternshipOS first." };
     const resume = db.resumes.find((item) => item.userId === auth.session.userId) ?? null;
+    const storedApp = (jobId: string) =>
+      db.applications.find((item) => item.userId === auth.session.userId && item.jobId === jobId) ?? null;
     const byUrl = db.jobs.find((job) => job.sourceUrls.some((source) => pageUrl && (source === pageUrl || pageUrl.startsWith(source))));
     const companyNorm = normalize(company);
     const titleNorm = normalize(title);
@@ -29,15 +32,17 @@ export async function GET(request: Request) {
     if (!job) {
       return {
         matched: false,
-        message: "This posting isn't in your InternshipOS feed yet. The extension only matches roles the ingestion pipeline has already normalized.",
+        message: "This posting isn't in your feed. Fill still uses your profile. Salary, work authorization, and the submit button stay blank.",
+        autofill: autofillPacket(profile, resume, null),
       };
     }
     const presented = presentJob(job, profile, resume);
-    const app = db.applications.find((item) => item.userId === auth.session.userId && item.jobId === job.id);
+    const app = storedApp(job.id);
     return {
       matched: true,
       job: presented,
       application: app ? presentApplication(app, job, profile, resume) : null,
+      autofill: autofillPacket(profile, resume, app),
     };
   });
   if ("error" in result && result.error) return fail(result.error, 401);
